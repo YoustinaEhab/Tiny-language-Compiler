@@ -1,0 +1,11 @@
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\bin\Debug\Compiler Project.exe.config
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\bin\Debug\Compiler Project.exe
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\bin\Debug\Compiler Project.pdb
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.AssemblyReference.cache
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.SuggestedBindingRedirects.cache
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Tiny_Compiler.Form1.resources
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler_Project.Properties.Resources.resources
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.GenerateResource.cache
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.CoreCompileInputs.cache
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.exe
+D:\PC1\Youstina\Compiler Theory\Compiler Project\Compiler Project\Compiler Project\obj\Debug\Compiler Project.pdb
