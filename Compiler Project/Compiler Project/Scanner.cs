@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 public enum Token_Class
 {
-    Number,
+	main,
+	Number,
     String, Integer, Float, Read, Write, Repeat, Until, IF, ElseIf, Else, Then, Return, Endl, End,
     Type_String,
     Comment,
