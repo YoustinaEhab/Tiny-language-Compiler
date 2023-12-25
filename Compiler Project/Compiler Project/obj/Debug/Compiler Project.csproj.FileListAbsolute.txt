@@ -20,3 +20,14 @@ D:\5th semester\Compiler\Compiler-Project\Tiny-language-Compiler\Compiler Projec
 D:\5th semester\Compiler\Compiler-Project\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.exe
 D:\5th semester\Compiler\Compiler-Project\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.pdb
 D:\5th semester\Compiler\Compiler-Project\Tiny-language-Compiler\Compiler Project\Compiler Project\bin\Debug\Compiler Project.pdb
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\bin\Debug\Compiler Project.exe.config
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\bin\Debug\Compiler Project.exe
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\bin\Debug\Compiler Project.pdb
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.AssemblyReference.cache
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.SuggestedBindingRedirects.cache
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Tiny_Compiler.Form1.resources
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler_Project.Properties.Resources.resources
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.GenerateResource.cache
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.csproj.CoreCompileInputs.cache
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.exe
+D:\Tiny-language-Compiler\Compiler Project\Compiler Project\obj\Debug\Compiler Project.pdb

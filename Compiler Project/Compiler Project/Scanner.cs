@@ -50,6 +50,7 @@ namespace Tiny_Compiler
             ReservedWords.Add("repeat", Token_Class.Repeat);
             ReservedWords.Add("until", Token_Class.Until);
             ReservedWords.Add("end", Token_Class.End);
+            ReservedWords.Add("main", Token_Class.main);
 
             ReservedWords.Add("string", Token_Class.Type_String);
             ReservedWords.Add("int", Token_Class.Integer);
@@ -208,16 +209,8 @@ namespace Tiny_Compiler
             }
             else if (isIdentifier(Lex))
             {
-                if(Lex=="main")
-                {
-					Tok.token_type = Token_Class.main;
-				}
-                else
-                {
-                    Tok.token_type = Token_Class.Identifier;
-                }
+                Tok.token_type = Token_Class.Identifier;
                 Tokens.Add(Tok);
-
             }
             else if (isNumber(Lex))
             {
@@ -249,15 +242,6 @@ namespace Tiny_Compiler
                 Tokens.Add(Tok);
 
             }
-            // else if (isComment(Lex))
-            // {
-            //   return;
-            //}
-            // else if (isString(Lex))
-            // {
-            //   Tok.token_type = Token_Class.String;
-            // Tokens.Add(Tok);
-            //}
             else
             {
                 Errors.Error_List.Add(Lex);
@@ -276,7 +260,7 @@ namespace Tiny_Compiler
         bool isNumber(string lex)
         {
             bool isValid = true;
-            var s = new Regex("^([-+]?[0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?)?$");
+            var s = new Regex("^([0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?)?$");
             if (!s.IsMatch(lex))
             {
                 isValid = false;
@@ -284,16 +268,6 @@ namespace Tiny_Compiler
 
             return isValid;
         }      
-       // public bool IsComment(string lex)
-       // {
-          //  Regex reg3 = new Regex(@"^(/\[\s\S]?\*/)$", RegexOptions.Compiled);
-           // return reg3.IsMatch(lex);
-        //}
-        //public bool isString(string lex)
-        //{
-          //  Regex reg4 = new Regex("\"([^\"]*)\"", RegexOptions.Compiled);
-           // return reg4.IsMatch(lex);
-        //}
 
     }
 }
