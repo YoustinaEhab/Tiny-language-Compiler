@@ -83,5 +83,10 @@ namespace Tiny_Compiler
         {
 
         }
-    }
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
