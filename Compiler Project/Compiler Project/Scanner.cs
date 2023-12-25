@@ -57,6 +57,7 @@ namespace Tiny_Compiler
 
             Arithmatic_Operator.Add("+", Token_Class.PlusOp);
             Arithmatic_Operator.Add("-", Token_Class.MinusOp);
+            Arithmatic_Operator.Add("–", Token_Class.MinusOp);
             Arithmatic_Operator.Add("*", Token_Class.MultiplyOp);
             Arithmatic_Operator.Add("/", Token_Class.DivideOp);
             Arithmatic_Operator.Add(":=", Token_Class.AssignOp);
@@ -90,12 +91,8 @@ namespace Tiny_Compiler
                     nextchar = SourceCode[j + 1];
                 }
 
-                if (CurrentChar == ' ' || CurrentChar == '\r') { 
+                if (CurrentChar == ' ' || CurrentChar == '\r' || CurrentChar == '\n') { 
                     continue;
-                }
-                else if(CurrentChar == '\n')
-                {
-                    break;
                 }
 
                 if (CurrentChar >= 'A' && CurrentChar <= 'z')
@@ -184,7 +181,7 @@ namespace Tiny_Compiler
                         Tok.token_type = Token_Class.String;
                         Tokens.Add(Tok);
 
-                        i = j + 1;
+                        i = j ;
                         continue;
                     }
                     
@@ -211,7 +208,14 @@ namespace Tiny_Compiler
             }
             else if (isIdentifier(Lex))
             {
-                Tok.token_type = Token_Class.Identifier;
+                if(Lex=="main")
+                {
+					Tok.token_type = Token_Class.main;
+				}
+                else
+                {
+                    Tok.token_type = Token_Class.Identifier;
+                }
                 Tokens.Add(Tok);
 
             }
