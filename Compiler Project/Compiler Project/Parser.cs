@@ -60,6 +60,7 @@ namespace Compiler_Project
 					if (InputPointer < TokenStream.Count)
 					{
 						Errors.Error_List.Add("Parsing Error: Expected nothing after main function \r\n");
+
 					}
 				}
 
@@ -129,7 +130,6 @@ namespace Compiler_Project
 		private Node Expression()
 		{
 			//================== Tmam ================
-
 			if (InputPointer < TokenStream.Count)
 			{
 			     Node expression = new Node("Expression");
@@ -156,8 +156,18 @@ namespace Compiler_Project
 					expression.Children.Add(Term());
 
 				}
+				else
+				{
+                        
+                        Errors.Error_List.Add("Parsing Error Expected Either a String or a Term or an Equation ");
+                        
+                        return null;
+                  
+                }
 
-				return expression;
+
+
+                return expression;
 			}
 			return null;
 		}
@@ -245,8 +255,8 @@ namespace Compiler_Project
 				{
 					arithmatic_operator.Children.Add(match(Token_Class.DivideOp));
 				}
-
-				return arithmatic_operator;
+				
+                return arithmatic_operator;
 			}
 			return null;
 		}
@@ -274,7 +284,7 @@ namespace Compiler_Project
 					term.Children.Add(match(Token_Class.Identifier));
 				}
 
-				return term;
+                return term;
 			}
 			return null;
 		}
@@ -419,8 +429,15 @@ namespace Compiler_Project
 				{
 					setStat.Children.Add(Repeat_Statement());
 				}
+				else
+				{
+                    Errors.Error_List.Add("Parsing Error Not A Valid Staement");
+					return null;
 
-				return setStat;
+                }
+
+
+                return setStat;
 			}
 			return null;
 		}
@@ -526,7 +543,8 @@ namespace Compiler_Project
 					cond_op.Children.Add(match(Token_Class.NotEqualOp));
 				}
 
-				return cond_op;
+
+                return cond_op;
 			}
 			return null;
 		}
@@ -576,9 +594,9 @@ namespace Compiler_Project
 					options.Children.Add(Else_If_Statement());
 					options.Children.Add(Options());
 					return options;
-				}	
-			}
-			return null;
+				}
+            }
+            return null;
 		}
 
 		private Node Else_If_Statement()
@@ -730,7 +748,7 @@ namespace Compiler_Project
 					}
 				}
 
-				return dec_stat;
+                return dec_stat;
 			}
 			return null;
 		}
@@ -784,6 +802,7 @@ namespace Compiler_Project
 				{
 					datatype.Children.Add(match(Token_Class.Type_String));
 				}
+
 				return datatype;
 			}
 			return null;
