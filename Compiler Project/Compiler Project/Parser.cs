@@ -48,20 +48,13 @@ namespace Compiler_Project
 			{
 				Node program = new Node("Program");
 
-				//Function_Statement Program | Main_Function 
-				if (TokenStream[InputPointer + 1].token_type != Token_Class.main)
-				{ 
-					program.Children.Add(Function_Statement());
-				    program.Children.Add(Program());
-			    }
-				else if (TokenStream[InputPointer + 1].token_type == Token_Class.main)
-				{
+				// Function_Statement Main_Function
+				program.Children.Add(Function_Statement());
+				if (InputPointer < TokenStream.Count)
 					program.Children.Add(Main_Function());
-					if (InputPointer < TokenStream.Count)
-					{
-						Errors.Error_List.Add("Parsing Error: Expected nothing after main function \r\n");
-					}
-				}
+				else
+					Errors.Error_List.Add("Parsing Error: NO main function \r\n");
+
 
 				MessageBox.Show("Success");
 				return program;
@@ -83,7 +76,10 @@ namespace Compiler_Project
 				main_func.Children.Add(match(Token_Class.LeftParanthesis));
 				main_func.Children.Add(match(Token_Class.RightParanthesis));
 				main_func.Children.Add(Function_Body());
-
+				if (InputPointer < TokenStream.Count)
+				{
+					Errors.Error_List.Add("Parsing Error: Expected nothing after main function \r\n");
+				}
 				return main_func;
 			}
 			return null;
@@ -795,19 +791,25 @@ namespace Compiler_Project
 			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
-				Node function_Statement = new Node("Function_Statement");
 
-				//Function_Declaration Function_Body 
-				if (TokenStream[InputPointer].token_type == Token_Class.Integer ||
+				//Function_Declaration Function_Body Function_Statement | ε 
+				if (TokenStream[InputPointer + 1].token_type != Token_Class.main)
+				{ 
+				    Node function_Statement = new Node("Function_Statement");
+					if (TokenStream[InputPointer].token_type == Token_Class.Integer ||
 					TokenStream[InputPointer].token_type == Token_Class.Float ||
 					TokenStream[InputPointer].token_type == Token_Class.Type_String)
-				{
-					function_Statement.Children.Add(Function_Declaration());
-					function_Statement.Children.Add(Function_Body());
-				}
-				else
-					return null;
-				return function_Statement;
+					{
+						function_Statement.Children.Add(Function_Declaration());
+						function_Statement.Children.Add(Function_Body());
+						function_Statement.Children.Add(Function_Statement());
+				        
+						return function_Statement;
+					}
+					else
+						return null;
+			    }
+				return null;
 			}
 			return null;
 
