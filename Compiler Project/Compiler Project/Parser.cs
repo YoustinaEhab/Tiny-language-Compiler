@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,16 +14,16 @@ using static System.Windows.Forms.AxHost;
 
 namespace Compiler_Project
 {
-    public class Node
-    {
+	public class Node
+	{
 		public List<Node> Children = new List<Node>();
 
-        public string Name;
-        public Node(string N)
-        {
-            this.Name = N;
-        }
-    }
+		public string Name;
+		public Node(string N)
+		{
+			this.Name = N;
+		}
+	}
 	public class Parser
 	{
 		int InputPointer = 0;
@@ -42,28 +42,17 @@ namespace Compiler_Project
 		//    project code
 		Node Program()
 		{
-			//================== Tmam ================
-
 			if (InputPointer < TokenStream.Count)
 			{
 				Node program = new Node("Program");
 
 				// Function_Statement Main_Function
 				program.Children.Add(Function_Statement());
-				if (InputPointer < TokenStream.Count)
+				if (InputPointer < TokenStream.Count) { 
 					program.Children.Add(Main_Function());
-<<<<<<< HEAD
-					if (InputPointer < TokenStream.Count)
-					{
-						Errors.Error_List.Add("Parsing Error: Expected nothing after main function \r\n");
-
-					}
 				}
-=======
 				else
-					Errors.Error_List.Add("Parsing Error: NO main function \r\n");
-
->>>>>>> 9438bcfaaeb7e651942cb3aa8b912bcaaea53107
+					Errors.Error_List.Add("Parsing Error: No Main Function \r\n");
 
 				MessageBox.Show("Success");
 				return program;
@@ -73,13 +62,12 @@ namespace Compiler_Project
 
 		private Node Main_Function()
 		{
-			//================== msh Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			    Node main_func = new Node("Main_Function");
+				Node main_func = new Node("Main_Function");
 
-			    //Datatype main () Function_Body
+				//Datatype main () Function_Body
 				main_func.Children.Add(Datatype());
 				main_func.Children.Add(match(Token_Class.main));
 				main_func.Children.Add(match(Token_Class.LeftParanthesis));
@@ -96,13 +84,11 @@ namespace Compiler_Project
 
 		private Node Function_Body()
 		{
-			//================== Tmam ================
-
 			if (InputPointer < TokenStream.Count)
 			{
-			    Node function_body = new Node("Function_Body");
+				Node function_body = new Node("Function_Body");
 
-			    //{set_of_Statements Return_Statement } 
+				//{set_of_Statements Return_Statement } 
 				function_body.Children.Add(match(Token_Class.LeftBrace));
 				function_body.Children.Add(set_of_Statements());
 				function_body.Children.Add(Return_Statement());
@@ -115,13 +101,12 @@ namespace Compiler_Project
 
 		private Node Return_Statement()
 		{
-			//================== Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			    Node return_statement = new Node("Return_Statement");
+				Node return_statement = new Node("Return_Statement");
 
-			    //return Expression; 
+				//return Expression; 
 				return_statement.Children.Add(match(Token_Class.Return));
 				return_statement.Children.Add(Expression());
 				return_statement.Children.Add(match(Token_Class.Semicolon));
@@ -133,19 +118,18 @@ namespace Compiler_Project
 
 		private Node Expression()
 		{
-			//================== Tmam ================
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node expression = new Node("Expression");
+				Node expression = new Node("Expression");
 
-			     //String | Term | Equation
+				//String | Term | Equation
 				if (TokenStream[InputPointer].token_type == Token_Class.String)
 				{
 					expression.Children.Add(match(Token_Class.String));
 				}
 				else if (TokenStream[InputPointer].token_type == Token_Class.LeftParanthesis ||
-					     TokenStream[InputPointer].token_type == Token_Class.Number ||
-					     TokenStream[InputPointer].token_type == Token_Class.Identifier &&
+						 TokenStream[InputPointer].token_type == Token_Class.Number ||
+						 TokenStream[InputPointer].token_type == Token_Class.Identifier &&
 						 (TokenStream[InputPointer + 1].token_type == Token_Class.PlusOp ||
 						 TokenStream[InputPointer + 1].token_type == Token_Class.MinusOp ||
 						 TokenStream[InputPointer + 1].token_type == Token_Class.MultiplyOp ||
@@ -162,29 +146,28 @@ namespace Compiler_Project
 				}
 				else
 				{
-                        
-                        Errors.Error_List.Add("Parsing Error Expected Either a String or a Term or an Equation ");
-                        
-                        return null;
-                  
-                }
+
+					Errors.Error_List.Add("Parsing Error Expected Either a String or a Term or an Equation ");
+
+					return null;
+
+				}
 
 
 
-                return expression;
+				return expression;
 			}
 			return null;
 		}
 
 		private Node Equation()
 		{
-			//================== Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node equation = new Node("Equation");
+				Node equation = new Node("Equation");
 
-			     //Term Operations | (Term Operations ) Operations 
+				//Term Operations | (Term Operations ) Operations 
 				if (TokenStream[InputPointer].token_type == Token_Class.Number ||
 				TokenStream[InputPointer].token_type == Token_Class.Identifier ||
 				(TokenStream[InputPointer].token_type == Token_Class.Identifier &&
@@ -210,14 +193,13 @@ namespace Compiler_Project
 
 		private Node Operations()
 		{
-			//================== Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node operations = new Node("Operations");
+				Node operations = new Node("Operations");
 
-			//Arithmatic_Operator Equation | ε 
-			//+ | - | * | / 
+				//Arithmatic_Operator Equation | ε 
+				//+ | - | * | / 
 				if (TokenStream[InputPointer].token_type == Token_Class.PlusOp
 				|| TokenStream[InputPointer].token_type == Token_Class.MinusOp
 				|| TokenStream[InputPointer].token_type == Token_Class.MultiplyOp
@@ -236,13 +218,12 @@ namespace Compiler_Project
 
 		private Node Arithmatic_Operator()
 		{
-			//================== Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node arithmatic_operator = new Node("Arithmatic_Operator");
+				Node arithmatic_operator = new Node("Arithmatic_Operator");
 
-			//+ | - | * | /
+				//+ | - | * | /
 				if (TokenStream[InputPointer].token_type == Token_Class.PlusOp)
 				{
 					arithmatic_operator.Children.Add(match(Token_Class.PlusOp));
@@ -259,22 +240,21 @@ namespace Compiler_Project
 				{
 					arithmatic_operator.Children.Add(match(Token_Class.DivideOp));
 				}
-				
-                return arithmatic_operator;
+
+				return arithmatic_operator;
 			}
 			return null;
 		}
 
 		private Node Term()
 		{
-			//================== Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node term = new Node("Term");
+				Node term = new Node("Term");
 
-			//Number | Identifier | Function_Call
-			//
+				//Number | Identifier | Function_Call
+				//
 				if (TokenStream[InputPointer].token_type == Token_Class.Number)
 				{
 					term.Children.Add(match(Token_Class.Number));
@@ -288,19 +268,18 @@ namespace Compiler_Project
 					term.Children.Add(match(Token_Class.Identifier));
 				}
 
-                return term;
+				return term;
 			}
 			return null;
 		}
 
 		private Node Function_Call()
 		{
-			//================== Tmam ================
 			if (InputPointer < TokenStream.Count)
 			{
-			    Node function_call = new Node("Function_Call");
+				Node function_call = new Node("Function_Call");
 
-			//identifier (Arguments) 
+				//identifier (Arguments) 
 				function_call.Children.Add(match(Token_Class.Identifier));
 				function_call.Children.Add(match(Token_Class.LeftParanthesis));
 				function_call.Children.Add(Arguments());
@@ -313,11 +292,10 @@ namespace Compiler_Project
 
 		private Node Arguments()
 		{
-			//================== i think Tmam ================
 
 			if (InputPointer < TokenStream.Count)
 			{
-			    Node arguments = new Node("Arguments");
+				Node arguments = new Node("Arguments");
 
 
 				// identifier, Arguments | identifier | ε 
@@ -347,7 +325,7 @@ namespace Compiler_Project
 
 				// Expression, Arguments | Expression | ε 
 				Node temp = Expression();
-				if(temp!=null)
+				if (temp != null)
 				{
 					arguments.Children.Add(temp);
 					if (TokenStream[InputPointer].token_type == Token_Class.Comma)
@@ -366,12 +344,11 @@ namespace Compiler_Project
 
 		private Node set_of_Statements()
 		{
-			//=========== Tmam ===============
 
 			if (InputPointer < TokenStream.Count)
 			{
 
-			//SetStat Set_of_Statements | ε 
+				//SetStat Set_of_Statements | ε 
 				if (TokenStream[InputPointer].token_type == Token_Class.Float ||
 				TokenStream[InputPointer].token_type == Token_Class.Integer ||
 				TokenStream[InputPointer].token_type == Token_Class.Type_String ||
@@ -381,15 +358,15 @@ namespace Compiler_Project
 				TokenStream[InputPointer].token_type == Token_Class.Repeat ||
 				TokenStream[InputPointer].token_type == Token_Class.IF)
 				{
-			        Node set_of_statements = new Node("set_of_Statements");
+					Node set_of_statements = new Node("set_of_Statements");
 					set_of_statements.Children.Add(SetStat());
 					Node temp = set_of_Statements();
-					if(temp != null)
+					if (temp != null)
 					{
 						set_of_statements.Children.Add(temp);
 					}
-					
-				    return set_of_statements;
+
+					return set_of_statements;
 				}
 				else
 					return null;
@@ -400,12 +377,11 @@ namespace Compiler_Project
 
 		private Node SetStat()
 		{
-			//================== i think Tmam =========
 			if (InputPointer < TokenStream.Count)
 			{
-			     Node setStat = new Node("SetStat");
+				Node setStat = new Node("SetStat");
 
-			// Assignment_Statement | Declaration_Statement | Write_Statement |Read_Statement | If_Statement | Repeat_Statement
+				// Assignment_Statement | Declaration_Statement | Write_Statement |Read_Statement | If_Statement | Repeat_Statement
 				if (TokenStream[InputPointer].token_type == Token_Class.Identifier)
 				{
 					setStat.Children.Add(Assignment_Statement());
@@ -435,20 +411,19 @@ namespace Compiler_Project
 				}
 				else
 				{
-                    Errors.Error_List.Add("Parsing Error Not A Valid Staement");
+					Errors.Error_List.Add("Parsing Error Not A Valid Staement");
 					return null;
 
-                }
+				}
 
 
-                return setStat;
+				return setStat;
 			}
 			return null;
 		}
 
 		private Node Repeat_Statement()
 		{
-			//================== Tmam =========
 			if (InputPointer < TokenStream.Count)
 			{
 				Node repeat = new Node("Repeat_Statement");
@@ -481,7 +456,6 @@ namespace Compiler_Project
 
 		private Node Boolean_Operator()
 		{
-			//============= Tmam ============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node boolean_op = new Node("Boolean_Operator");
@@ -508,7 +482,6 @@ namespace Compiler_Project
 
 		private Node Condition()
 		{
-			//=========== tmam ===========
 			if (InputPointer < TokenStream.Count)
 			{
 				Node cond = new Node("Condition");
@@ -524,7 +497,6 @@ namespace Compiler_Project
 
 		private Node Condition_Operator()
 		{
-			//========== tmam ============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node cond_op = new Node("Condition_Operator");
@@ -548,14 +520,13 @@ namespace Compiler_Project
 				}
 
 
-                return cond_op;
+				return cond_op;
 			}
 			return null;
 		}
 
 		private Node If_Statement()
 		{
-			//=========== tmam =========
 			if (InputPointer < TokenStream.Count)
 			{
 				Node if_statement = new Node("If_Statement");
@@ -564,7 +535,7 @@ namespace Compiler_Project
 
 				if_statement.Children.Add(match(Token_Class.IF));
 				Node con = Con_Statement();
-				if(con != null)
+				if (con != null)
 				{
 					if_statement.Children.Add(con);
 					Node op = Options();
@@ -573,7 +544,7 @@ namespace Compiler_Project
 
 				}
 				if_statement.Children.Add(match(Token_Class.End));
-				
+
 				return if_statement;
 			}
 			return null;
@@ -581,14 +552,13 @@ namespace Compiler_Project
 
 		private Node Options()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				// Options -> Else_If_Statement Options | Else_Statement | end
 
 				if (TokenStream[InputPointer].token_type == Token_Class.Else)
 				{
-				    Node options = new Node("Options");
+					Node options = new Node("Options");
 					options.Children.Add(Else_Statement());
 					return options;
 				}
@@ -599,13 +569,12 @@ namespace Compiler_Project
 					options.Children.Add(Options());
 					return options;
 				}
-            }
-            return null;
+			}
+			return null;
 		}
 
 		private Node Else_If_Statement()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node elsf = new Node("Else_If_Statement");
@@ -621,7 +590,6 @@ namespace Compiler_Project
 
 		private Node Else_Statement()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node els = new Node("Else_Statement");
@@ -637,7 +605,6 @@ namespace Compiler_Project
 
 		private Node Con_Statement()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node con = new Node("Con_Statement");
@@ -654,7 +621,6 @@ namespace Compiler_Project
 
 		private Node Read_Statement()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node read = new Node("Read_Statement");
@@ -665,12 +631,11 @@ namespace Compiler_Project
 				read.Children.Add(match(Token_Class.Semicolon));
 				return read;
 			}
-			return null;	
+			return null;
 		}
 
 		private Node Write_Statement()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node write = new Node("Write_Statement");
@@ -681,12 +646,11 @@ namespace Compiler_Project
 
 				return write;
 			}
-			return null;	
+			return null;
 		}
 
 		private Node Write_stat()
 		{
-			//======= tmam =======
 			if (InputPointer < TokenStream.Count)
 			{
 				Node write = new Node("Write_stat");
@@ -704,12 +668,11 @@ namespace Compiler_Project
 				write.Children.Add(match(Token_Class.Semicolon));
 				return write;
 			}
-			return null;	
+			return null;
 		}
 
 		private Node Declaration_Statement()
 		{
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node declaration_statement = new Node("Declaration_Statement");
@@ -726,14 +689,13 @@ namespace Compiler_Project
 
 		private Node Declaration_stat()
 		{
-			//============= i think Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node dec_stat = new Node("Declaration_stat");
 
 				// Declaration_stat ->identifiers , Declaration_stat | Assignment , Declaration_stat | identifiers | Assignment
 
-				 if (TokenStream[InputPointer].token_type == Token_Class.Identifier && TokenStream[InputPointer + 1].token_type == Token_Class.AssignOp)
+				if (TokenStream[InputPointer].token_type == Token_Class.Identifier && TokenStream[InputPointer + 1].token_type == Token_Class.AssignOp)
 				{
 					dec_stat.Children.Add(Assignment());
 					if (TokenStream[InputPointer].token_type == Token_Class.Comma)
@@ -752,7 +714,7 @@ namespace Compiler_Project
 					}
 				}
 
-                return dec_stat;
+				return dec_stat;
 			}
 			return null;
 		}
@@ -771,7 +733,6 @@ namespace Compiler_Project
 		}
 		private Node Assignment()
 		{
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node assignment = new Node("Assignment");
@@ -780,7 +741,7 @@ namespace Compiler_Project
 				assignment.Children.Add(match(Token_Class.Identifier));
 				assignment.Children.Add(match(Token_Class.AssignOp));
 				assignment.Children.Add(Expression());
-				
+
 				return assignment;
 			}
 			return null;
@@ -788,7 +749,6 @@ namespace Compiler_Project
 
 		private Node Datatype()
 		{
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node datatype = new Node("Datatype");
@@ -815,14 +775,13 @@ namespace Compiler_Project
 		private Node Function_Statement()
 		{
 
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 
 				//Function_Declaration Function_Body Function_Statement | ε 
 				if (TokenStream[InputPointer + 1].token_type != Token_Class.main)
-				{ 
-				    Node function_Statement = new Node("Function_Statement");
+				{
+					Node function_Statement = new Node("Function_Statement");
 					if (TokenStream[InputPointer].token_type == Token_Class.Integer ||
 					TokenStream[InputPointer].token_type == Token_Class.Float ||
 					TokenStream[InputPointer].token_type == Token_Class.Type_String)
@@ -830,12 +789,12 @@ namespace Compiler_Project
 						function_Statement.Children.Add(Function_Declaration());
 						function_Statement.Children.Add(Function_Body());
 						function_Statement.Children.Add(Function_Statement());
-				        
+
 						return function_Statement;
 					}
 					else
 						return null;
-			    }
+				}
 				return null;
 			}
 			return null;
@@ -844,7 +803,6 @@ namespace Compiler_Project
 
 		private Node Function_Declaration()
 		{
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node function_declaration = new Node("Function_Declaration");
@@ -860,10 +818,9 @@ namespace Compiler_Project
 			}
 			return null;
 		}
-		bool first=true;
+		bool first = true;
 		private Node Function_Parameters()
 		{
-			//============= i think Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 
@@ -873,14 +830,14 @@ namespace Compiler_Project
 					TokenStream[InputPointer].token_type == Token_Class.Float ||
 					TokenStream[InputPointer].token_type == Token_Class.Type_String)
 				{
-				    Node function_parameters = new Node("Function_Parameters");
+					Node function_parameters = new Node("Function_Parameters");
 					function_parameters.Children.Add(Parameter());
 					if (TokenStream[InputPointer].token_type == Token_Class.Comma)
 					{
 						function_parameters.Children.Add(match(Token_Class.Comma));
 						function_parameters.Children.Add(Function_Parameters());
 					}
-				    return function_parameters;
+					return function_parameters;
 				}
 				else
 					return null;
@@ -891,7 +848,6 @@ namespace Compiler_Project
 
 		private Node Parameter()
 		{
-			//=========== Tmam ==========
 			if (InputPointer < TokenStream.Count)
 			{
 				Node parameter = new Node("Parameter");
@@ -907,7 +863,6 @@ namespace Compiler_Project
 
 		private Node FunctionName()
 		{
-			//============= Tmam =============
 			if (InputPointer < TokenStream.Count)
 			{
 				Node functionName = new Node("FunctionName");
